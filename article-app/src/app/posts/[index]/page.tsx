@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useSearchParams, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { AppDispatch, RootState } from "@/store/store";
 import { useSelector } from 'react-redux';
@@ -20,18 +20,23 @@ type Article = {
     publishedAt: string;
 };
 
-function Details({ index }: any) {
+function Details({ index}: any) {
     const [article, setArticle] = useState<Article | null>(null);
+    // const router = useSearchParams();
+    // const index = router.get(params);
+
+    console.log('params: ', index)
 
     const allArticles = useSelector((state: RootState) => state.articles.article);
 
+    console.log('article: ', article);
     useEffect(() => {
         // Find the article with the matching index
-        const selectedArticle = allArticles.find((a: any, index: number) => a.index === index);
+        const selectedArticle = allArticles.find((a:any, index: any) => a.index === a?.[index]);
         setArticle(selectedArticle || null);
     }, [index, allArticles]);
 
-    
+
     if (!article) {
         return <div className='h-screen flex justify-center items-center'><Image className='animate-pulse' src={blueLogo} alt='loader image' /></div>;
     }

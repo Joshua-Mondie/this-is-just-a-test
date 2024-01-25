@@ -9,11 +9,11 @@ export const navLinks = [
     },
     {
         name: "Shop",
-        link: "/shop",
+        link: "shop",
     },
     {
         name: "Gallery",
-        link: "/gallery",
+        link: "gallery",
     },
     {
         name: "Blog",
