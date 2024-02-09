@@ -5,15 +5,15 @@ export const navLinks = [
     },
     {
         name: "Feature",
-        link: "feature",
+        link: "",
     },
     {
         name: "Shop",
-        link: "shop",
+        link: "",
     },
     {
         name: "Gallery",
-        link: "gallery",
+        link: "",
     },
     {
         name: "Blog",

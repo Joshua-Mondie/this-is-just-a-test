@@ -81,7 +81,12 @@ function Blog() {
                                 <p className="bg-lightBase text-lightGrey text-xs p-1 absolute bottom-0">{post?.author}</p>
                             </div>
                             <div className="bg-lightBase mt-8">
-                                <Link href={`/posts/${index}`} className="text-[16px] lg:text-[20px] leading-[18px] lg:leading-[28.8px] font-soThick">{post.title}</Link>
+                                <Link href={{pathname: `/posts/${index}`, query: {
+                                    index,
+                                    image: post.urlToImage,
+                                    authour: post.author,
+                                    title: post.title
+                                }}} className="text-[16px] lg:text-[20px] leading-[18px] lg:leading-[28.8px] font-soThick">{post.title}</Link>
                                 <div className="flex items-center gap-3 mt-6">
                                     <p className="text-sm font-soThick text-lightGrey">{post?.source?.name}</p>
                                     <p className="text-sm font-soThick text-lightGrey">{formatDate(post?.publishedAt)}</p>

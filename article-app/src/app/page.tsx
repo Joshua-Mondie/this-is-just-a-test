@@ -26,13 +26,13 @@ export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const select = useSelector((state: RootState) => state.articles.article);
   const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null);
-  
+
   // usePagination hook for filtering the articles by pages
   const { currentPage, totalPages, currentData, nextPage, prevPage, goToPage } = usePagination<Article>({
     items: selectedAuthor ? select?.filter((post: any) => post.author === selectedAuthor) : select || [],
     itemsPerPage: 10,
   });
-  
+
   const [filteredPosts, setFilteredPosts] = useState<Article[]>(currentData);
 
 
@@ -77,7 +77,13 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 min-h-screen">
             <div className="left w-full p-4">
               {select?.slice(0, 1).map((article: any, index: any) => (
-                <Link key={index} href={`/posts/${index}`} passHref className="text-[32px] leading-[34px] lg:text-[62px] lg:leading-[74px] text-lightBase">{article?.title}</Link>
+                <Link key={index} href={{
+                  pathname: `/posts/${index}`, query: {
+                    index: index,
+                    img: article.urlToImage,
+                    title: article.title,
+                  }
+                }} passHref className="text-[32px] leading-[34px] lg:text-[62px] lg:leading-[74px] text-lightBase">{article?.title}</Link>
               ))}
 
               <div className="sub-news grid grid-cols-1 lg:grid-cols-2 mt-10 gap-4">
@@ -88,7 +94,15 @@ export default function Home() {
                         <img className="w-full h-full" src={articles.urlToImage} alt="" />
                       )}
                     </div>
-                    <Link href={`/posts/${index}`} passHref className="text-[16px] leading-[19px] font-soThick text-white text-wrap my-3">{articles.title}</Link>
+                    <Link href={{
+                      pathname: `/posts/${index}`,
+                      query: {
+                        index: index,
+                        img: articles.urlToImage,
+                        title: articles.title,
+
+                      }
+                    }} passHref className="text-[16px] leading-[19px] font-soThick text-white text-wrap my-3">{articles.title}</Link>
                   </div>
                 ))}
               </div>
@@ -108,7 +122,12 @@ export default function Home() {
                         <p className="text-white">
                           Author: {popular.author}
                         </p>
-                        <Link href={`/posts/${index}`} passHref className="text-white">{popular.title}</Link>
+                        <Link href={{pathname: `/posts/${index}`, query: {
+                          index: index,
+                          title: popular.title,
+                          author: popular.author,
+                          image: popular.urlToImage
+                        }}} passHref className="text-white">{popular.title}</Link>
                       </div>
                     </div>
                   ))}
@@ -141,7 +160,13 @@ export default function Home() {
                     <p className="bg-lightBase text-lightGrey text-xs p-1 absolute bottom-0">{post?.author}</p>
                   </div>
                   <div className="bg-lightBase mt-8">
-                    <Link href={`/posts/${index}`} passHref className="text-[16px] lg:text-[20px] leading-[18px] lg:leading-[28.8px] font-soThick">{post.title}</Link>
+                    <Link href={{pathname: `/posts/${index}`, query: {
+                      index: index,
+                      url: post.urlToImage,
+                      author: post?.author,
+                      title: post.title,
+                      source: post?.source?.name
+                    }}} passHref className="text-[16px] lg:text-[20px] leading-[18px] lg:leading-[28.8px] font-soThick">{post.title}</Link>
                     <div className="flex items-center gap-3 mt-6">
                       <p className="text-sm font-soThick text-lightGrey">{post?.source?.name}</p>
                       <p className="text-sm font-soThick text-lightGrey">{formatDate(post?.publishedAt)}</p>

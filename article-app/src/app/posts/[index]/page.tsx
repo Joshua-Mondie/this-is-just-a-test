@@ -22,7 +22,7 @@ type Article = {
 
 function Details({ index}: any) {
     const [article, setArticle] = useState<Article | null>(null);
-    // const router = useSearchParams();
+    const searchParams = useSearchParams();
     // const index = router.get(params);
 
     console.log('params: ', index)
@@ -32,7 +32,7 @@ function Details({ index}: any) {
     console.log('article: ', article);
     useEffect(() => {
         // Find the article with the matching index
-        const selectedArticle = allArticles.find((a:any, index: any) => a.index === a?.[index]);
+        const selectedArticle = allArticles.find((a:any) => a.index === index);
         setArticle(selectedArticle || null);
     }, [index, allArticles]);
 
@@ -51,7 +51,7 @@ function Details({ index}: any) {
                             <img className="w-full h-full" src={article.urlToImage} alt="" />
                         )}
                     </div>
-                    <h1 className='text-lightText text-[24px] lg:text-[36px] font-soThick my-3'>{article.title}</h1>
+                    <h1 className='text-lightText text-[24px] lg:text-[36px] font-soThick my-3'>{searchParams.get("title")}</h1>
                     {article.content === null ? (
                         <p className='text-grey my-3 text-xs lg:text-lg'>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit animi tenetur culpa
@@ -67,7 +67,7 @@ function Details({ index}: any) {
                     ) : (
                         <p className='text-grey my-3 text text-xs lg:text-lg'>{article.content}</p>
                     )}
-                    <p className='text-lightGrey text-xs lg:text-base'>{article.author}</p>
+                    <p className='text-lightGrey text-xs lg:text-base'>{searchParams.get("author")}</p>
                 </div>
             </div>
         </>
