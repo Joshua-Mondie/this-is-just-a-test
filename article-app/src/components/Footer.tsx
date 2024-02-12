@@ -45,6 +45,7 @@ function Footer() {
                             <li className='my-2'>Twitter</li>
                         </ul>
                     </div>
+                    <div className=' text-center flex'>Created by two smart Devs </div>
                 </footer>
             </div>
         </>
